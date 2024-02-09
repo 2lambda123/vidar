@@ -244,33 +244,136 @@ class Config(Namespace):
     """Configuration class, used to store and access parameters"""
 
     def __init__(self, **kwargs):
+        """Initializes the object with the given keyword arguments.
+        Parameters:
+            - kwargs (dict): Dictionary of keyword arguments.
+        Returns:
+            - None: This function does not return anything.
+        Processing Logic:
+            - Calls the parent class's __init__ method.
+            - Initializes the object with the given keyword arguments."""
+        
         super().__init__(**kwargs)
 
     @staticmethod
     def from_file(file):
+        """Reads a configuration file and returns its contents.
+        Parameters:
+            - file (str): The path to the configuration file.
+        Returns:
+            - dict: A dictionary containing the configuration data.
+        Processing Logic:
+            - Read file and return contents.
+            - Use read_config() function.
+            - Only accepts one file at a time."""
+        
         return read_config(file)
 
     @property
     def dict(self):
+        """Returns the dictionary representation of the object.
+        Parameters:
+            - self (object): The object to be converted to a dictionary.
+        Returns:
+            - dict: A dictionary representation of the object.
+        Processing Logic:
+            - Converts object to dictionary.
+            - No additional parameters required.
+            - Can be used to access object attributes.
+            - Useful for debugging and data manipulation."""
+        
         return self.__dict__
 
     def keys(self):
+        """Returns a list of all the keys in the dictionary.
+        Parameters:
+            - self (dict): The dictionary to retrieve keys from.
+        Returns:
+            - list: A list of all the keys in the dictionary.
+        Processing Logic:
+            - Retrieve keys from dictionary.
+            - Convert keys to list.
+            - Return list of keys."""
+        
         return self.dict.keys()
 
     def items(self):
+        """Returns a list of key-value pairs from the given dictionary.
+        Parameters:
+            - self (dict): The dictionary to be processed.
+        Returns:
+            - list: A list of key-value pairs from the given dictionary.
+        Processing Logic:
+            - Gets key-value pairs from the dictionary.
+            - Returns them as a list.
+            - Uses the built-in items() method."""
+        
         return self.dict.items()
 
     def values(self):
+        """This function returns the values of a dictionary.
+        Parameters:
+            - self (dict): The dictionary to be accessed.
+        Returns:
+            - values (list): A list of the values in the dictionary.
+        Processing Logic:
+            - Accesses the values of the dictionary.
+            - Returns a list of the values.
+            - No parameters are required for this function.
+            - Can be used on any dictionary."""
+        
         return self.dict.values()
 
     def has(self, *args):
+        """Checks if the given arguments are present in the configuration file.
+        Parameters:
+            - self (object): The object to be checked.
+            - *args (list): A list of arguments to be checked in the configuration file.
+        Returns:
+            - bool: True if all arguments are present, False otherwise.
+        Processing Logic:
+            - Checks if the object has a configuration file.
+            - Checks if all arguments are present.
+            - Returns True if all arguments are present, False otherwise."""
+        
         return cfg_has(self, *args)
 
     def get(self, key, default):
+        """"This function retrieves a value from a dictionary based on a given key and returns a default value if the key is not found."
+        Parameters:
+            - key (any): The key to be searched for in the dictionary.
+            - default (any): The default value to be returned if the key is not found.
+        Returns:
+            - any: The value associated with the given key in the dictionary, or the default value if the key is not found.
+        Processing Logic:
+            - Checks if the key is present in the dictionary.
+            - If the key is present, returns the corresponding value.
+            - If the key is not present, returns the default value."""
+        
         return self.dict[key] if key in self.keys() else default
 
     def pop(self, key, default):
+        """"Returns the value for the given key if it exists, otherwise returns the default value.
+        Parameters:
+            - key (any): The key to search for in the dictionary.
+            - default (any): The value to return if the key is not found.
+        Returns:
+            - any: The value associated with the given key, or the default value if the key is not found.
+        Processing Logic:
+            - Searches for the given key in the dictionary.
+            - If the key is found, returns the associated value.
+            - If the key is not found, returns the default value.
+            - Does not modify the dictionary."""
+        
         return self.get(key, default)
 
     def __getitem__(self, key):
+        """This function returns the value associated with the given key from the dictionary.
+        Parameters:
+            - key (any): The key to retrieve the value for.
+        Returns:
+            - any: The value associated with the given key.
+        Processing Logic:
+            - Retrieves value from dictionary using key."""
+        
         return self.dict[key]
