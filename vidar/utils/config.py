@@ -112,7 +112,7 @@ def recursive_recipe(cfg, super_key=None):
 def read_config(path, **kwargs):
     """Read configuration from file"""
     with open(path) as cfg:
-        config = yaml.load(cfg, Loader=yaml.FullLoader)
+        config = yaml.load(cfg, Loader=yaml.SafeLoader)
     config = recursive_recipe(config)
     cfg = to_namespace(config)
     if kwargs is not None:
